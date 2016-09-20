@@ -15,15 +15,15 @@ public class smtpClient {
     private static Socket socket;
     private static DataOutputStream OutputStream;
     private static DataInputStream InputStream;
+    private static int isDebugging;
 
     public static void main(String[] args) throws IOException {
 
         // HUSK Å LEGGE TIL DEBUG OPTIONS DIN JÆVLA DRITTUNGE
 
         String hostname = "";
-        int isDebugging;
 
-        if(args.length == 0) {
+        if(args.length == 0 || args.length == 1) {
             System.err.println("ERROR. You must pass hostname and port parameters.");
             System.exit(0);
         } else {
@@ -31,7 +31,6 @@ public class smtpClient {
             isDebugging = Integer.parseInt(args[1]);
         }
 
-        // Try to open socket
         try {
             socket = new Socket(hostname, 25);
             System.out.println("Connection to host established.");
@@ -44,7 +43,6 @@ public class smtpClient {
         OutputStream = new DataOutputStream(socket.getOutputStream());
         InputStream = new DataInputStream(socket.getInputStream());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
 
         try {
             OutputStream.writeBytes("HELO " + hostname + "\n");
@@ -77,6 +75,8 @@ public class smtpClient {
             OutputStream.writeBytes("QUIT");
             readReplyFromServer();
 
+            System.out.println("Successfully delivered mail.");
+
             OutputStream.close();
             InputStream.close();
             socket.close();
@@ -89,7 +89,13 @@ public class smtpClient {
         }
     }
 
+    /*
+    Method for printing the replies from the server. Doesn't do anything
+    if we are not currently debugging, i.e. printing replies from server.
+     */
     public static void readReplyFromServer() throws IOException {
-        System.out.println("Message from server: " + InputStream.readLine());
+        if (isDebugging == 1){
+            System.out.println("Message from server: " + InputStream.readLine());
+        }
     }
 }
