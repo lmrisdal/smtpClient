@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
  */
 public class smtpClient {
 
-    private static Socket smtpSocket;
-    private static DataOutputStream os;
-    private static DataInputStream is;
+    private static Socket socket;
+    private static DataOutputStream OutputStream;
+    private static DataInputStream InputStream;
 
     public static void main(String[] args) throws IOException {
 
@@ -28,7 +28,7 @@ public class smtpClient {
 
         // Try to open socket
         try {
-            smtpSocket = new Socket(hostname, 25);
+            socket = new Socket(hostname, 25);
             System.out.println("Connection to host established.");
         } catch (UnknownHostException e) {
             System.err.println("Host not found.");
@@ -36,60 +36,55 @@ public class smtpClient {
             System.err.println(e);
         }
 
-        os = new DataOutputStream(smtpSocket.getOutputStream());
-        is = new DataInputStream(smtpSocket.getInputStream());
+        OutputStream = new DataOutputStream(socket.getOutputStream());
+        InputStream = new DataInputStream(socket.getInputStream());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 
         try {
-            os.writeBytes("HELO " + hostname + "\n");
+            OutputStream.writeBytes("HELO " + hostname + "\n");
             readReplyFromServer();
 
             System.out.print("Sender: ");
             String senderAddress = reader.readLine();
-            os.writeBytes("MAIL From: " + senderAddress + "\n");
+            OutputStream.writeBytes("MAIL From: " + senderAddress + "\n");
             readReplyFromServer();
 
             System.out.print("Recipient: ");
             String recipientAddress = reader.readLine();
-            os.writeBytes("RCPT To: " + recipientAddress + "\n");
+            OutputStream.writeBytes("RCPT To: " + recipientAddress + "\n");
             readReplyFromServer();
 
-            os.writeBytes("DATA\n");
+            OutputStream.writeBytes("DATA\n");
             readReplyFromServer();
 
-            os.writeBytes("From: " + senderAddress + "\n");
+            OutputStream.writeBytes("From: " + senderAddress + "\n");
             System.out.print("Subject: ");
             String subject = reader.readLine();
-            os.writeBytes("Subject: " + subject + "\n");
+            OutputStream.writeBytes("Subject: " + subject + "\n");
 
             System.out.print("Message: ");
             String message = reader.readLine();
-            os.writeBytes(message + "\n");
-            os.writeBytes("\n.\n");
+            OutputStream.writeBytes(message + "\n");
+            OutputStream.writeBytes("\n.\n");
             readReplyFromServer();
 
-            os.writeBytes("QUIT");
+            OutputStream.writeBytes("QUIT");
             readReplyFromServer();
 
-            // clean up:
-            // close the output stream
-            // close the input stream
-            // close the socket
-            os.close();
-            is.close();
-            smtpSocket.close();
+            OutputStream.close();
+            InputStream.close();
+            socket.close();
             System.exit(0);
 
         } catch (UnknownHostException e) {
-            System.err.println("Trying to connect to unknown host: " + e);
+            System.err.println(e);
         } catch (IOException e) {
-            System.err.println("IOException:  " + e);
+            System.err.println(e);
         }
-        //}
     }
 
     public static void readReplyFromServer() throws IOException {
-        System.out.println("Message from server: " + is.readLine());
+        System.out.println("Message from server: " + InputStream.readLine());
     }
 }
