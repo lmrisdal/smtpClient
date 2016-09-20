@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="smtpClient:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/smtpClient_jar</output-path>
+    <root id="archive" name="smtpClient.jar">
+      <element id="module-output" name="smtpClient" />
+    </root>
+  </artifact>
+</component>
