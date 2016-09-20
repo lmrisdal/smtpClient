@@ -23,7 +23,7 @@ public class smtpClient {
         String hostname = "";
 
         if(args.length == 0 || args.length == 1) {
-            System.err.println("ERROR. You must pass hostname and port parameters.");
+            System.err.println("ERROR. You must pass hostname and debugging parameters.");
             System.exit(0);
         } else {
             hostname = args[0];
@@ -32,6 +32,7 @@ public class smtpClient {
 
         try {
             socket = new Socket(hostname, 25);
+            //socket.setSoTimeout(15*1000);
             System.out.println("Connection to host established.");
         } catch (UnknownHostException e) {
             System.err.println("Host not found.");
@@ -44,19 +45,30 @@ public class smtpClient {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         try {
+
+            // HUSK Å LEGGE TIL REPLY CODE HANDLING
+
+            OutputStream.flush();
+            readReplyFromServer();
+            System.out.println("Sending HELO message to host.");
             OutputStream.writeBytes("HELO " + hostname + "\n");
+            OutputStream.flush();
             readReplyFromServer();
 
             System.out.print("Sender: ");
             String senderAddress = reader.readLine();
+            System.out.println("Sending MAIL FROM message to host.");
             OutputStream.writeBytes("MAIL From: " + senderAddress + "\n");
+            OutputStream.flush();
             readReplyFromServer();
 
             System.out.print("Recipient: ");
             String recipientAddress = reader.readLine();
+            System.out.println("Sending RCPT TO message to host.");
             OutputStream.writeBytes("RCPT To: " + recipientAddress + "\n");
             readReplyFromServer();
 
+            System.out.println("Sending DATA message to host.");
             OutputStream.writeBytes("DATA\n");
             readReplyFromServer();
 
@@ -94,7 +106,7 @@ public class smtpClient {
      */
     public static void readReplyFromServer() throws IOException {
         if (isDebugging == 1){
-            System.out.println("Message from server: " + InputStream.readLine());
+                System.out.println("Message from server: " + InputStream.readLine());
         }
     }
 }
