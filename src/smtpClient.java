@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
  * Program Title:       smtpClient
  * Author:              Lars Martin G. Risdal
  * Date:                September 19, 2016
- * Class:               CSCI 3550 - Computer Networking
+ * Class:               CSCI 3550 - Communication Networks
  * Purpose:             Simple SMTP client
  */
 
