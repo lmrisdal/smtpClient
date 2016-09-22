@@ -8,7 +8,7 @@ Debugging option 1 = displays all status messages.
 
 
 #### License
-The software is licensed under the [GNU General Public License] (https://github.com/lmrisdal/smtpClient/LICENSE)
+The software is licensed under the [GNU General Public License] (https://github.com/lmrisdal/smtpClient/blob/master/LICENSE)
 ````
 Copyright 2016 Lars Martin G. Risdal
 
