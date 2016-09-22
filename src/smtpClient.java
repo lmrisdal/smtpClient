@@ -116,7 +116,7 @@ public class smtpClient {
         if (isDebugging == 1) {
             System.out.println("Sending HELO message to host.");
         }
-        OutputStream.writeBytes("HELO " + "loki" + "\n");
+        OutputStream.writeBytes("HELO " + "loki" + "\r\n");
         replyMessage = readReplyFromServer();
         if (!replyMessage.startsWith("250")) {
             System.err.println("ERROR. Something went wrong. Syntax is: HELO <hostname>");
@@ -134,7 +134,7 @@ public class smtpClient {
             //System.out.println("Sending MAIL FROM message to host.");
             System.out.println("Sending message: MAIL FROM: <" + senderAddress +">");
         }
-        OutputStream.writeBytes("MAIL FROM: " + senderAddress + "\n");
+        OutputStream.writeBytes("MAIL FROM: " + senderAddress + "\r\n");
         replyMessage = readReplyFromServer();
         if (!replyMessage.startsWith("250")) {
             System.err.println("ERROR. Something went wrong.");
@@ -152,7 +152,7 @@ public class smtpClient {
             //System.out.println("Sending RCPT TO message to host.");
             System.out.println("Sending message: RCPT TO: <" + recipientAddress +">");
         }
-        OutputStream.writeBytes("RCPT TO: " + recipientAddress + "\n");
+        OutputStream.writeBytes("RCPT TO: " + recipientAddress + "\r\n");
         replyMessage = readReplyFromServer();
         if (!replyMessage.startsWith("250")) {
             System.err.println("ERROR. Receiver email address is wrong. Try again.");
@@ -167,7 +167,7 @@ public class smtpClient {
         if (isDebugging == 1) {
             System.out.println("Sending DATA message to host.");
         }
-        OutputStream.writeBytes("DATA\n");
+        OutputStream.writeBytes("DATA\r\n");
         replyMessage = readReplyFromServer();
         if (!replyMessage.startsWith("354")) {
             System.err.println("ERROR. Something went wrong.");
@@ -181,29 +181,28 @@ public class smtpClient {
         // SUBJECT MESSAGE
         System.out.print("Please enter a subject: ");
         String subject = reader.readLine();
-        OutputStream.writeBytes("Subject: " + subject + "\n");
+        OutputStream.writeBytes("Subject: " + subject + "\r\n");
         if (isDebugging == 1) {
             System.out.println("Sending message: To: <" + recipientAddress +">");
             System.out.println("Sending message: From: <" + senderAddress +">");
             System.out.println("Sending message: Subject: <" + subject +">\n");
         }
 
-        OutputStream.writeBytes("To: " + recipientAddress + "\n");
-        OutputStream.writeBytes("From: " + senderAddress + "\n");
+        OutputStream.writeBytes("To: " + recipientAddress + "\r\n");
+        OutputStream.writeBytes("From: " + senderAddress + "\r\n");
 
         // MESSAGE BODY
         System.out.println("Enter your message. End with single period mark '.'");
-
         // We keep adding lines to the message until we receive the single period mark.
         while (true) {
             String message = reader.readLine();
-            OutputStream.writeBytes(message + "\n");
+            OutputStream.writeBytes(message + "\r\n");
             if (isDebugging == 1) {
                 System.out.println("Sending message: " + message);
             }
 
             if (message.equals(".")) {
-                OutputStream.writeBytes(".\n");
+                OutputStream.writeBytes(".\r\n");
                 break;
             }
         }
@@ -218,7 +217,7 @@ public class smtpClient {
         }
 
         // QUIT MESSAGE
-        OutputStream.writeBytes("QUIT\n");
+        OutputStream.writeBytes("QUIT\r\n");
         if (isDebugging == 1) {
             System.out.println("\nSending message: QUIT");
         }
