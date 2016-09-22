@@ -8,7 +8,7 @@ Run with these parameters: 'hostname' debugging_option (0 or 1)
 1 = displays all status messages.  
 
 e.g.  
-$ java -jar smtpClient.jar [loki.ist.unomaha.edu](loki.ist.unomaha.edu) 1  
+$ java -jar smtpClient.jar [loki.ist.unomaha.edu](www.loki.ist.unomaha.edu) 1  
 
 
 #### License
