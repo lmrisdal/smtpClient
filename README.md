@@ -2,7 +2,7 @@
 Simle SMTP mail sender made with Java.
 
 ### Howto
-Run with arguments: 'hostname' debugging_option (0 or 1) <br />
+Run with arguments: 'hostname' debugging_option (0 or 1)
 Debugging option 0 = displays no status messages. <br />
 Debugging option 1 = displays all status messages.
 
