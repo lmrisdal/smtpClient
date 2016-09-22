@@ -1,4 +1,4 @@
-# **smtpClient** by Lars Martin G. Risdal
+# **smtpClient**
 Simle SMTP mail sender made with Java.
 
 ### Howto
