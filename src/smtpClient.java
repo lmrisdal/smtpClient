@@ -93,7 +93,7 @@ public class smtpClient {
 
         // Check for parameter errors. There must me 2 parameters.
         if (args.length == 0 || args.length == 1) {
-            System.err.println("Usage: smtpClient.jar <server> debug_option.");
+            System.err.println("Usage: smtpClient <server> debug_option.");
             System.exit(0);
         } else {
             hostname = args[0];
