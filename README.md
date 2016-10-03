@@ -7,7 +7,9 @@ Run with these parameters: 'hostname' debugging_option (0 or 1)
 0 = displays no status messages.  
 1 = displays all status messages.  
 
-e.g.  
+e.g. 
+$ java smtpClient loki.ist.unomaha.edu 0  
+or  
 $ java -jar smtpClient.jar mx1.hotmail.com 1  
 
 
