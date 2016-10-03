@@ -9,7 +9,7 @@ Run with these parameters: 'hostname' debugging_option (0 or 1)
 
 e.g.  
 $ java smtpClient loki.ist.unomaha.edu 0  
-$ java -jar smtpClient.jar mx1.hotmail.com 1  
+$ java -jar smtpClient.jar mx1.hotmail.com 1 (with .jar file)  
 
 
 ## License
